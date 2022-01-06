@@ -1,26 +1,30 @@
 package com.mercadolivro.mercadolivro.service
 
+import com.mercadolivro.mercadolivro.enums.CustomerStatus
 import com.mercadolivro.mercadolivro.model.CustomerModel
 import com.mercadolivro.mercadolivro.repository.CustomerRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
 class CustomerService(
-    val customerRepository: CustomerRepository
+    val customerRepository: CustomerRepository,
+    val bookService: BookService
 ) {
 
-    fun getAll(name: String?): List<CustomerModel> {
+    fun getAll(name: String?, pageable: Pageable): Page<CustomerModel> {
         name?.let {
-            return customerRepository.findByNameContaining(it)
+            return customerRepository.findByNameContaining(it, pageable)
         }
-        return customerRepository.findAll().toList()
+        return customerRepository.findAll(pageable)
     }
 
     fun create(customer: CustomerModel) {
         customerRepository.save(customer)
     }
 
-    fun getCustomer(id: Int): CustomerModel {
+    fun findById(id: Int): CustomerModel {
         return customerRepository.findById(id).get()
     }
 
@@ -33,10 +37,10 @@ class CustomerService(
     }
 
     fun delete(id: Int) {
-        if (!customerRepository.existsById(id)) {
-            throw Exception()
-        }
+        val customer = findById(id)
+        bookService.deleteByCustomer(customer)
 
-        customerRepository.deleteById(id)
+        customer.status = CustomerStatus.INATIVO
+        customerRepository.save(customer)
     }
 }
