@@ -21,6 +21,8 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-kotlin:1.6.4")
 	implementation("org.springframework.boot:spring-boot-starter-validation:2.6.2")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("io.jsonwebtoken:jjwt:0.9.1")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")

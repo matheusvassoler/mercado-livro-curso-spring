@@ -5,6 +5,7 @@ import com.mercadolivro.mercadolivro.controller.request.PutCustomerRequest
 import com.mercadolivro.mercadolivro.controller.response.CustomerResponse
 import com.mercadolivro.mercadolivro.extension.toCustomerModel
 import com.mercadolivro.mercadolivro.extension.toResponse
+import com.mercadolivro.mercadolivro.security.UserCanOnlyAccessTheirOwnResource
 import com.mercadolivro.mercadolivro.service.CustomerService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -31,6 +32,7 @@ class CustomerController(
     }
 
     @GetMapping("/{id}")
+    @UserCanOnlyAccessTheirOwnResource
     fun getCustomer(@PathVariable id: Int): CustomerResponse {
        return customerService.findById(id).toResponse()
     }
