@@ -1,5 +1,6 @@
 package com.mercadolivro.mercadolivro.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.mercadolivro.mercadolivro.enums.BookStatus
 import com.mercadolivro.mercadolivro.enums.Errors
 import com.mercadolivro.mercadolivro.exception.BadRequestException
@@ -21,6 +22,7 @@ data class BookModel(
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @JsonIgnore
     var customer: CustomerModel? = null
 ) {
     @Column
