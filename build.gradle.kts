@@ -6,6 +6,7 @@ plugins {
 	kotlin("jvm") version "1.6.10"
 	kotlin("plugin.spring") version "1.6.10"
 	kotlin("plugin.jpa") version "1.4.21"
+	jacoco
 }
 
 group = "com.mercadolivro"
@@ -32,6 +33,8 @@ dependencies {
 	runtimeOnly("mysql:mysql-connector-java")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("io.mockk:mockk:1.12.2")
+	testImplementation("org.springframework.security:spring-security-test:5.6.1")
 }
 
 tasks.withType<KotlinCompile> {

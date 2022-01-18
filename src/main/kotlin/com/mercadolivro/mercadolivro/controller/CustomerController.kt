@@ -21,8 +21,8 @@ class CustomerController(
 ) {
 
     @GetMapping
-    fun getAll(@PageableDefault(page = 0, size = 10) pageable: Pageable, @RequestParam name: String?): Page<CustomerResponse> {
-        return customerService.getAll(name, pageable).map { it.toResponse() }
+    fun getAll(@PageableDefault(page = 0, size = 10) pageable: Pageable, @RequestParam name: String?): List<CustomerResponse> {
+        return customerService.getAll(name).map { it.toResponse() }
     }
 
     @PostMapping
